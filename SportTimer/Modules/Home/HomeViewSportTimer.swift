@@ -2,7 +2,7 @@ import SwiftUI
 
 struct HomeViewSportTimer: View {
     @StateObject private var viewModelSportTimer = HomeViewModelSportTimer()
-    @ObservedObject var mainViewModel: MainViewModelSportTimer
+    @Binding var activeTab: TabSportTimer
 
     var body: some View {
         NavigationView {
@@ -15,7 +15,7 @@ struct HomeViewSportTimer: View {
                     if let homeData = viewModelSportTimer.homeDataSportTimer {
                         StatisticsViewSportTimer(totalWorkouts: homeData.totalWorkouts, totalDuration: homeData.totalDuration)
                         
-                        StartWorkoutButtonSportTimer(mainViewModel: mainViewModel)
+                        StartWorkoutButtonSportTimer(activeTab: $activeTab)
                         
                         RecentWorkoutsViewSportTimer(workouts: homeData.recentWorkouts)
                         
@@ -84,11 +84,11 @@ private struct StatisticCardSportTimer: View {
 }
 
 private struct StartWorkoutButtonSportTimer: View {
-    @ObservedObject var mainViewModel: MainViewModelSportTimer
+    @Binding var activeTab: TabSportTimer
     @State private var isPressed = false
     var body: some View {
         Button(action: {
-            mainViewModel.selectedTab = 1 // Переключаемся на вкладку Таймера (индекс 1)
+            activeTab = .timer // Переключаемся на вкладку Таймера
         }) {
             Text("Start Workout")
                 .font(.system(size: 20, weight: .bold))

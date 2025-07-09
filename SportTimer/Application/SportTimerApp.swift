@@ -8,6 +8,8 @@ struct SportTimerAppSportTimer: App {
         WindowGroup {
             SplashScreenViewSportTimer()
                 .environment(\.managedObjectContext, persistenceControllerSportTimer.container.viewContext)
+                .preferredColorScheme(.light)
+                .statusBarHidden()
         }
     }
 }
