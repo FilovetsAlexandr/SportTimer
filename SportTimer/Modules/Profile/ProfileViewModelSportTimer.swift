@@ -5,6 +5,16 @@ import SwiftUI
 
 class ProfileViewModelSportTimer: ObservableObject {
     @Published var profileDataSportTimer = ProfileModelSportTimer()
+    @Published var isVibrationEnabled: Bool = SettingsManager.shared.isVibrationEnabled {
+        didSet {
+            SettingsManager.shared.isVibrationEnabled = isVibrationEnabled
+        }
+    }
+    @Published var isSoundEnabled: Bool = SettingsManager.shared.isSoundEnabled {
+        didSet {
+            SettingsManager.shared.isSoundEnabled = isSoundEnabled
+        }
+    }
     private let coreDataManagerSportTimer = PersistenceControllerSportTimer.shared
 
     func fetchProfileDataSportTimer() {

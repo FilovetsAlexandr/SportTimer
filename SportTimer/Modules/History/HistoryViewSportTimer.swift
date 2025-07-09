@@ -5,13 +5,37 @@ struct HistoryViewSportTimer: View {
 
     var body: some View {
         NavigationView {
-            List {
-                ForEach(viewModelSportTimer.workoutsSportTimer, id: \.id) { workout in
-                    WorkoutRowSportTimer(workout: workout)
+            VStack {
+                if viewModelSportTimer.groupedWorkouts.isEmpty && viewModelSportTimer.searchText.isEmpty {
+                    Text("No workouts yet. Complete a workout to see it here.")
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(.secondary)
+                        .padding()
+                } else if viewModelSportTimer.groupedWorkouts.isEmpty && !viewModelSportTimer.searchText.isEmpty {
+                    Text("No results for \"\(viewModelSportTimer.searchText)\"")
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(.secondary)
+                        .padding()
+                } else {
+                    List {
+                        ForEach(viewModelSportTimer.groupedWorkouts.keys.sorted(by: >), id: \.self) { date in
+                            Section(header: Text(date, style: .date)) {
+                                ForEach(viewModelSportTimer.groupedWorkouts[date] ?? [], id: \.id) { workout in
+                                    WorkoutRowSportTimer(workout: workout)
+                                }
+                                .onDelete { indexSet in
+                                    guard let workouts = viewModelSportTimer.groupedWorkouts[date] else { return }
+                                    for index in indexSet {
+                                        viewModelSportTimer.deleteWorkoutSportTimer(workout: workouts[index])
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
-                .onDelete(perform: viewModelSportTimer.deleteWorkoutSportTimer)
             }
             .navigationTitle("History")
+            .searchable(text: $viewModelSportTimer.searchText, prompt: "Search by type or notes")
             .onAppear {
                 viewModelSportTimer.fetchWorkoutsSportTimer()
             }
@@ -29,7 +53,12 @@ private struct WorkoutRowSportTimer: View {
                     .font(.headline)
                 Text("Duration: \(TimeInterval(workout.duration).formattedStringSportTimer())")
                     .font(.subheadline)
-                Text(workout.date ?? Date(), style: .date)
+                if let notes = workout.notes, !notes.isEmpty {
+                    Text("Notes: \(notes)")
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                }
+                Text(workout.date ?? Date(), style: .time)
                     .font(.caption)
                     .foregroundColor(.secondary)
             }

@@ -1,6 +1,5 @@
 import SwiftUI
 
-// Helper for press events
 struct PressActions: ViewModifier {
     var onPress: () -> Void
     var onRelease: () -> Void

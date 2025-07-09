@@ -54,11 +54,8 @@ struct ProfileViewSportTimer: View {
                 }
                 
                 Section(header: Text("Settings")) {
-                    Button(action: {
-                        // TODO: Implement sound settings
-                    }) {
-                        Text("Timer Sounds")
-                    }
+                    Toggle("Sound", isOn: $viewModelSportTimer.isSoundEnabled)
+                    Toggle("Vibration", isOn: $viewModelSportTimer.isVibrationEnabled)
                 }
                 
                 Section(header: Text("Data Management")) {

@@ -88,7 +88,7 @@ private struct StartWorkoutButtonSportTimer: View {
     @State private var isPressed = false
     var body: some View {
         Button(action: {
-            activeTab = .timer // Переключаемся на вкладку Таймера
+            activeTab = .timer
         }) {
             Text("Start Workout")
                 .font(.system(size: 20, weight: .bold))
@@ -135,12 +135,19 @@ private struct RecentWorkoutsViewSportTimer: View {
 private struct WorkoutCardSportTimer: View {
     let workout: WorkoutSportTimer
 
+    private var formattedDate: String {
+        guard let date = workout.date else { return "N/A" }
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd.MM.yyyy"
+        return formatter.string(from: date)
+    }
+
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
                 Text(workout.type ?? "N/A")
                     .font(.system(size: 18, weight: .semibold))
-                Text(workout.date?.formatted() ?? "N/A")
+                Text(formattedDate)
                     .font(.system(size: 14))
                     .foregroundColor(.textSecondarySportTimer)
             }
@@ -152,20 +159,5 @@ private struct WorkoutCardSportTimer: View {
         .background(Color.white)
         .cornerRadius(12)
         .shadow(radius: 5)
-    }
-}
-
-extension TimeInterval {
-    func formattedStringSportTimer() -> String {
-        let interval = Int(self)
-        let seconds = interval % 60
-        let minutes = (interval / 60) % 60
-        let hours = (interval / 3600)
-        
-        if hours > 0 {
-            return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
-        } else {
-            return String(format: "%02d:%02d", minutes, seconds)
-        }
     }
 }

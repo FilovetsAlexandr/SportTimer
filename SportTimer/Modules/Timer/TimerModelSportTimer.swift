@@ -4,7 +4,7 @@ enum WorkoutTypeSportTimer: String, CaseIterable, Identifiable {
     case strength = "Strength"
     case cardio = "Cardio"
     case yoga = "Yoga"
-    case stretching = "Stretching"
+    case stretching = "Stretch"
     case other = "Other"
 
     var id: String { self.rawValue }

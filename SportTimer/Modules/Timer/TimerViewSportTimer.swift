@@ -17,6 +17,7 @@ struct TimerViewSportTimer: View {
                     
                     TimerControlsViewSportTimer(
                         isTimerActive: viewModelSportTimer.modelSportTimer.timerActive,
+                        timeElapsed: viewModelSportTimer.modelSportTimer.timeElapsed,
                         startAction: viewModelSportTimer.startTimerSportTimer,
                         pauseAction: viewModelSportTimer.pauseTimerSportTimer,
                         stopAction: {
@@ -77,6 +78,7 @@ private struct NotesTextFieldSportTimer: View {
 
 private struct TimerControlsViewSportTimer: View {
     let isTimerActive: Bool
+    let timeElapsed: TimeInterval
     let startAction: () -> Void
     let pauseAction: () -> Void
     let stopAction: () -> Void
@@ -86,8 +88,8 @@ private struct TimerControlsViewSportTimer: View {
     var body: some View {
         HStack(spacing: 20) {
             if !isTimerActive {
-                Button(action: startAction) {
-                    TimerButtonSportTimer(label: "Start", color: .successSportTimer)
+                Button(action: timeElapsed > 0 ? pauseAction : startAction) {
+                    TimerButtonSportTimer(label: timeElapsed > 0 ? "Resume" : "Start", color: .successSportTimer)
                 }
                 .scaleEffect(isPressed1 ? 0.95 : 1.0)
                 .pressEvents {
