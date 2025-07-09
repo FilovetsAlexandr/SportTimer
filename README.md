@@ -25,3 +25,7 @@
 4.  Нажмите `Cmd+R` для сборки и запуска проекта.
 
 ## Скриншоты основных экранов
+![Simulator Screenshot - iPhone 15 Pro Max - 2025-07-09 at 18 55 52](https://github.com/user-attachments/assets/8a24c3df-bc52-4e25-b57f-c059454d2c60)
+![Simulator Screenshot - iPhone 15 Pro Max - 2025-07-09 at 18 56 10](https://github.com/user-attachments/assets/f5a059dc-7048-4fe8-85f0-ef76308496c3)
+![Simulator Screenshot - iPhone 15 Pro Max - 2025-07-09 at 18 56 14](https://github.com/user-attachments/assets/1e333b09-297f-4c6d-a211-80537ec557ca)
+![Simulator Screenshot - iPhone 15 Pro Max - 2025-07-09 at 18 56 21](https://github.com/user-attachments/assets/c237093f-633b-4a81-a042-893d6aa2fc50)
